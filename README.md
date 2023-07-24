@@ -11,6 +11,9 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 This is a plugin that creates a shortcode to display rare asset data.
 
+## Prerequisites
+The Gulp dev setup works on Node 16.10.0 and not Node 18. 
+
 ## Description
 
 This plugin provides a shortcode that you can use to fetch and display data about rare assets.

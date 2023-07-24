@@ -1,0 +1,27 @@
+{
+  "name": "rare-shortcodes",
+  "version": "1.0.0",
+  "description": "Contributors: Jeff Ruoss Tags: shortcodes, assets, rare Requires at least: 5.8 Tested up to: 5.8 Stable tag: 1.0 Requires PHP: 8.1 License: GPLv2 or later License URI: https://www.gnu.org/licenses/gpl-2.0.html",
+  "main": "index.js",
+  "scripts": {
+    "preinstall": "npx check-node-version --node 16",
+    "dev": "npx check-node-version --node 16.x && gulp serve"
+  },
+  "engines": {
+    "node": "16.x"
+  },
+  "engineStrict": true,
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^2.29.3",
+    "gulp": "^4.0.2",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-rename": "^2.0.0",
+    "gulp-sass": "^5.1.0",
+    "gulp-sourcemaps": "^3.0.0",
+    "gulp-uglify": "^3.0.2"
+  }
+}
