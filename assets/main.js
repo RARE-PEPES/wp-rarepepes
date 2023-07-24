@@ -20,9 +20,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
               .then(data => {
                   const assetData = data.data.find(item => item.asset_name === assetName);
                   if (!assetData) {
-                      tooltip.textContent = 'No data found for this asset.';
+                      tooltip.innerHTML = 'No data found for this asset.';
                   } else {
-                      tooltip.textContent = `Issuer: ${assetData.issuer}, Quantity: ${assetData.quantity}`;
+                      tooltip.innerHTML = `
+                          <h3>${assetData.asset_name}</h3>
+                          <p>Series <strong>${assetData.series}</strong> Card <strong>${assetData.order}</strong></p>
+                          <img src="${assetData.img_url}" alt="${assetData.asset_name}" />
+                          <p>Initially Issued: <strong>${assetData.quantity}</strong></p>
+                      `;
                   }
                   tooltip.style.display = 'block';
               });
