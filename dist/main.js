@@ -11,6 +11,7 @@ fetch('https://data.rarepepes.com/items/nft')
             if (assetNamesOnPage.includes(item.asset_name)) {
                 const img = new Image();
                 img.src = item.img_url;
+                item.img_obj = img;
             }
         });
 
@@ -49,7 +50,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 tooltip.classList.add('active');
                 return;
             }
-
+        
             const assetData = nftData.find(item => item.asset_name === assetName);
             if (!assetData) {
                 tooltip.innerHTML = 'No data found for this asset.';
@@ -57,7 +58,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 tooltip.innerHTML = `
                     <h3>${assetData.asset_name}</h3>
                     <p>Series <strong>${assetData.series}</strong> Card <strong>${assetData.order}</strong></p>
-                    <img class="fade-in" src="${assetData.img_url}" alt="${assetData.asset_name}" />
+                    `;
+                tooltip.appendChild(assetData.img_obj);
+                tooltip.innerHTML += `
                     <p>Initially Issued: <strong>${assetData.quantity}</strong></p>
                 `;
             }
