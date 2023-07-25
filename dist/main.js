@@ -1,3 +1,14 @@
+let nftData;
+
+fetch('https://data.rarepepes.com/items/nft')
+    .then(response => response.json())
+    .then(data => {
+        nftData = data.data;
+    })
+    .catch(error => {
+        console.error("Error fetching data:", error);
+    });
+
 document.addEventListener('DOMContentLoaded', (event) => {
     const links = document.querySelectorAll('.rs-link');
     if (!links) {
@@ -22,25 +33,26 @@ document.addEventListener('DOMContentLoaded', (event) => {
         document.body.appendChild(tooltip);
 
         link.addEventListener('mouseover', (event) => {
-            // checkPositionAndDisplayTooltip(tooltip, link);
+            if (!nftData) {
+                tooltip.innerHTML = 'Data is not loaded yet.';
+                tooltip.style.display = 'block';
+                tooltip.classList.add('active');
+                return;
+            }
 
-            fetch('https://data.rarepepes.com/items/nft')
-                .then(response => response.json())
-                .then(data => {
-                    const assetData = data.data.find(item => item.asset_name === assetName);
-                    if (!assetData) {
-                        tooltip.innerHTML = 'No data found for this asset.';
-                    } else {
-                        tooltip.innerHTML = `
-                            <h3>${assetData.asset_name}</h3>
-                            <p>Series <strong>${assetData.series}</strong> Card <strong>${assetData.order}</strong></p>
-                            <img src="${assetData.img_url}" alt="${assetData.asset_name}" />
-                            <p>Initially Issued: <strong>${assetData.quantity}</strong></p>
-                        `;
-                    }
-                    tooltip.style.display = 'block';
-                    tooltip.classList.add('active');
-                });
+            const assetData = nftData.find(item => item.asset_name === assetName);
+            if (!assetData) {
+                tooltip.innerHTML = 'No data found for this asset.';
+            } else {
+                tooltip.innerHTML = `
+                    <h3>${assetData.asset_name}</h3>
+                    <p>Series <strong>${assetData.series}</strong> Card <strong>${assetData.order}</strong></p>
+                    <img src="${assetData.img_url}" alt="${assetData.asset_name}" />
+                    <p>Initially Issued: <strong>${assetData.quantity}</strong></p>
+                `;
+            }
+            tooltip.style.display = 'block';
+            tooltip.classList.add('active');
         });
 
         link.addEventListener('mouseout', (event) => {
