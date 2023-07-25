@@ -1,9 +1,19 @@
 let nftData;
+let assetNamesOnPage = [...document.querySelectorAll('.rs-link')].map(link => link.dataset.assetName);
 
 fetch('https://data.rarepepes.com/items/nft')
     .then(response => response.json())
     .then(data => {
         nftData = data.data;
+
+        // Preload images for assets present on the page
+        nftData.forEach(item => {
+            if (assetNamesOnPage.includes(item.asset_name)) {
+                const img = new Image();
+                img.src = item.img_url;
+            }
+        });
+        
     })
     .catch(error => {
         console.error("Error fetching data:", error);
@@ -47,7 +57,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 tooltip.innerHTML = `
                     <h3>${assetData.asset_name}</h3>
                     <p>Series <strong>${assetData.series}</strong> Card <strong>${assetData.order}</strong></p>
-                    <img src="${assetData.img_url}" alt="${assetData.asset_name}" />
+                    <img class="fade-in" src="${assetData.img_url}" alt="${assetData.asset_name}" />
                     <p>Initially Issued: <strong>${assetData.quantity}</strong></p>
                 `;
             }
