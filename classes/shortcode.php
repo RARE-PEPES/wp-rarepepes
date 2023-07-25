@@ -34,7 +34,7 @@ class RS_Shortcode {
         ) );
 
         // Return the HTML for the shortcode
-        return '<a href="#" class="rs-link" data-asset-name="' . esc_attr( $atts['name'] ) . '">' . esc_html( $atts['name'] ) . '</a><div class="rs-tooltip"></div>';
+        return '<a href="#" class="rs-link" data-asset-name="' . esc_attr( $atts['name'] ) . '">' . esc_html( $atts['name'] ) . '</a><span class="rs-tooltip"></span>';
     }
 }
 

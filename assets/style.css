@@ -1,7 +1,24 @@
+.rs-link {
+  position: relative;
+}
+
 .rs-tooltip {
   display: none;
   position: absolute;
   background: white;
-  border: 1px solid black;
-  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #016600;
+  padding: 7px;
+  font-size: 14px;
+  max-width: 200px;
+  bottom: 100%; /* position tooltip from bottom of link upwards */
+  left: 50%; /* horizontally center the tooltip */
+  transform: translateX(-50%); /* make sure tooltip is perfectly centered */
+  margin-bottom: 10px; /* add extra space between link and tooltip */
+  color: #060;
+}
+.rs-tooltip h3 {
+  font-size: 21px;
+  color: #060;
+  font-weight: bold;
 }
