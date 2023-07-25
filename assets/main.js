@@ -1,6 +1,7 @@
 let nftData;
 let assetNamesOnPage = rsData.assetNames; // Defined in shortcode.php
 let activeTooltip = null;
+let documentTouchTriggered = false;
 
 const fetchData = async () => {
     try {
@@ -46,13 +47,21 @@ const linkMouseHandler = (tooltip, link, event, isClick = false) => {
     }
 
     if (isClick) {
+        // Prevent the document's touchstart event from getting triggered
+        event.stopPropagation();
+
         if (activeTooltip === tooltip) {
             tooltip.style.display = 'none';
             activeTooltip = null;
         } else {
-            tooltip.style.display = 'block';
-            if (activeTooltip) activeTooltip.style.display = 'none';
-            activeTooltip = tooltip;
+            if (documentTouchTriggered) {
+                // Do not reopen tooltip if documentTouchTriggered is true
+                documentTouchTriggered = false; // reset flag
+            } else {
+                tooltip.style.display = 'block';
+                if (activeTooltip) activeTooltip.style.display = 'none';
+                activeTooltip = tooltip;
+            }
         }
     } else {
         tooltip.style.display = 'block';
@@ -122,6 +131,16 @@ const initTooltips = () => {
             });
         }
     });
+
+    if (isTouchDevice) {
+        document.addEventListener('touchstart', () => {
+            if (activeTooltip) {
+                activeTooltip.style.display = 'none';
+                activeTooltip = null;
+                documentTouchTriggered = true;
+            }
+        });
+    }
 }
 
 document.addEventListener('DOMContentLoaded', async (event) => {
