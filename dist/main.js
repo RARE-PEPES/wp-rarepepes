@@ -115,6 +115,7 @@ const initTooltips = () => {
 
         if (isTouchDevice) {
             link.addEventListener('click', (event) => {
+                event.stopPropagation();
                 event.preventDefault();
                 linkMouseHandler(tooltip, link, event, true);
             });
@@ -132,12 +133,12 @@ const initTooltips = () => {
         }
     });
 
+    // close tooltip on touchstart anywhere on the document that is not the link
     if (isTouchDevice) {
-        document.addEventListener('touchstart', () => {
-            if (activeTooltip) {
+        document.addEventListener('touchstart', (event) => {
+            if (!event.target.classList.contains('rs-link') && activeTooltip) {
                 activeTooltip.style.display = 'none';
                 activeTooltip = null;
-                documentTouchTriggered = true;
             }
         });
     }
