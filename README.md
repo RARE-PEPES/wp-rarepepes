@@ -1,18 +1,7 @@
 # Rare Shortcodes
-Contributors: Jeff Ruoss
-Donate link: https://wp.jeffruoss.com/
-Tags: shortcodes, assets, rare
-Requires at least: 5.8
-Tested up to: 5.8
-Stable tag: 1.0
-Requires PHP: 8.1
-License: GPLv2 or later
-License URI: https://www.gnu.org/licenses/gpl-2.0.html
-
-This is a plugin that creates a shortcode to display rare asset data.
-
-## Prerequisites
-The Gulp dev setup works on Node 16.10.0 and not Node 18. 
+Contributors: Jeff Ruoss<br>
+Tested up to: 6.2.2<br>
+Requires PHP: 8.1<br>
 
 ## Description
 
@@ -32,6 +21,9 @@ When you hover over the link that the shortcode generates, it will display a too
 
 1. Upload the plugin files to the `/wp-content/plugins/rare-shortcodes` directory, or install the plugin through the WordPress plugins screen directly.
 2. Activate the plugin through the 'Plugins' screen in WordPress.
+
+## Development
+The Gulp dev setup works on Node 16.10.0 and not Node 18.
 
 ## Changelog
 
