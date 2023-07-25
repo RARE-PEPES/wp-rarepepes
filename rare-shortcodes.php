@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Rare Shortcodes
  * Plugin URI: https://wp.jeffruoss.com/
- * Description: This is a simple plugin that creates a shortcode to display rare asset data.
+ * Description: Creates a shortcode to display rare asset data in a tooltip.
  * Version: 1.0
  * Author: Jeff Ruoss
  * Author URI: https://zenthree.com/
