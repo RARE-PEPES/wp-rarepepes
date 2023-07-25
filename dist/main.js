@@ -27,7 +27,11 @@ const updateTooltipPosition = (event) => {
     let mouseY = event.clientY;
     const activeTooltip = document.querySelector('.rs-tooltip.active');
     if (activeTooltip) {
-        activeTooltip.style.top = `${mouseY - (activeTooltip.offsetHeight + 10)}px`;
+        if (mouseY < 400) {
+            activeTooltip.style.top = `${mouseY + 10}px`;
+        } else {
+            activeTooltip.style.top = `${mouseY - (activeTooltip.offsetHeight + 10)}px`;
+        }
         activeTooltip.style.left = `${mouseX - (activeTooltip.offsetWidth / 2)}px`;
     }
 }
