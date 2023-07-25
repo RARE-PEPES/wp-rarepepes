@@ -1,6 +1,6 @@
 .rs-tooltip {
   display: none;
-  position: absolute;
+  position: fixed;
   background: white;
   border-radius: 5px;
   border: 1px solid #66CC00;
