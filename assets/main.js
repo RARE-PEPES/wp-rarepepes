@@ -1,5 +1,5 @@
 let nftData;
-let assetNamesOnPage = [...document.querySelectorAll('.rs-link')].map(link => link.dataset.assetName);
+let assetNamesOnPage = rsData.assetNames // Defined in shortcode.php
 
 fetch('https://data.rarepepes.com/items/nft')
     .then(response => response.json())
@@ -13,7 +13,7 @@ fetch('https://data.rarepepes.com/items/nft')
                 img.src = item.img_url;
             }
         });
-        
+
     })
     .catch(error => {
         console.error("Error fetching data:", error);
