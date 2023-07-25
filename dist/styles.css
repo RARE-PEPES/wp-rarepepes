@@ -1,25 +1,37 @@
 .rs-link {
   position: relative;
 }
-
 .rs-tooltip {
   display: none;
   position: absolute;
   background: white;
   border-radius: 5px;
-  border: 1px solid #016600;
-  padding: 7px;
+  border: 1px solid #66CC00;
+  padding: 15px;
   font-size: 14px;
   max-width: 200px;
   bottom: 100%;
   left: 50%;
   transform: translateX(-50%);
   margin-bottom: 10px;
+  color: #016000;
+  background-color: #e8ffe8;
 }
-
 .rs-tooltip.tooltip-below {
   bottom: auto;
   top: 100%;
   margin-bottom: 0px;
   margin-top: 10px;
+}
+.rs-tooltip h3 {
+  margin-bottom: 0;
+  color: #060;
+  font-size: 21px;
+  font-weight: bold;
+}
+.rs-tooltip p {
+  margin-bottom: 0;
+}
+.rs-tooltip img {
+  margin-top: 5px;
 }

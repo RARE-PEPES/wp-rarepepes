@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     function checkPositionAndDisplayTooltip(tooltip, link) {
         const linkTop = link.getBoundingClientRect().top;
 
-        if (linkTop <= 250) {
+        if (linkTop <= 400) {
             tooltip.classList.add('tooltip-below');
         } else {
             tooltip.classList.remove('tooltip-below');
