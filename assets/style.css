@@ -11,14 +11,15 @@
   padding: 7px;
   font-size: 14px;
   max-width: 200px;
-  bottom: 100%; /* position tooltip from bottom of link upwards */
-  left: 50%; /* horizontally center the tooltip */
-  transform: translateX(-50%); /* make sure tooltip is perfectly centered */
-  margin-bottom: 10px; /* add extra space between link and tooltip */
-  color: #060;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 10px;
 }
-.rs-tooltip h3 {
-  font-size: 21px;
-  color: #060;
-  font-weight: bold;
+
+.rs-tooltip.tooltip-below {
+  bottom: auto;
+  top: 100%;
+  margin-bottom: 0px;
+  margin-top: 10px;
 }

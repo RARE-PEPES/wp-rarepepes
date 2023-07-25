@@ -3,16 +3,28 @@ document.addEventListener('DOMContentLoaded', (event) => {
     if (!links) {
         return;
     }
-  
+
+    function checkPositionAndDisplayTooltip(tooltip, link) {
+        const linkTop = link.getBoundingClientRect().top;
+
+        if (linkTop <= 250) {
+            tooltip.classList.add('tooltip-below');
+        } else {
+            tooltip.classList.remove('tooltip-below');
+        }
+    }
+
     links.forEach((link) => {
         const assetName = link.dataset.assetName;
-  
+
         // Create tooltip as a child of link
         const tooltip = document.createElement('div');
         tooltip.className = 'rs-tooltip';
         link.appendChild(tooltip);
-  
+
         link.addEventListener('mouseover', (event) => {
+            checkPositionAndDisplayTooltip(tooltip, link);
+
             fetch('https://data.rarepepes.com/items/nft')
                 .then(response => response.json())
                 .then(data => {
@@ -30,10 +42,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     tooltip.style.display = 'block';
                 });
         });
-  
+
         link.addEventListener('mouseout', (event) => {
             tooltip.style.display = 'none';
         });
     });
-  });
-  
+});
