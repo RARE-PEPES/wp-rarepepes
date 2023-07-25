@@ -1,5 +1,5 @@
 .rs-link {
-  position: relative;
+  /* position: relative; */
 }
 .rs-tooltip {
   display: none;
@@ -10,18 +10,20 @@
   padding: 15px;
   font-size: 16px;
   max-width: 200px;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%);
+  /* top: 0; */
+  /* left: 0; */
+  /* bottom: 100%; */
+  /* left: 50%; */
+  /* transform: translateX(-50%); */
   margin-bottom: 10px;
   z-index: 9999;
 }
-.rs-tooltip.tooltip-below {
+/* .rs-tooltip.tooltip-below {
   bottom: auto;
   top: 100%;
   margin-bottom: 0px;
   margin-top: 10px;
-}
+} */
 .rs-tooltip h3 {
   margin-bottom: 0;
   font-size: 21px;
