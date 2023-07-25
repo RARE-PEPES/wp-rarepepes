@@ -35,22 +35,18 @@
 }
 
 /* Light mode */
-/* .rs-tooltip {
-  background-color: #e8ffe8;
-  color: #016000;
+.rs-tooltip {
+  background-color: #fff;
 }
 .rs-tooltip h3 {
   color: #016000;
 }
-.rs-tooltip p {
-  color: #016000;
-}
 .rs-tooltip p strong {
   color: #016000;
-} */
+}
 
 /* Dark mode */
-.rs-tooltip {
+/* .rs-tooltip {
   background-color: #016000;
   color: #fff;
 }
@@ -62,4 +58,4 @@
 }
 .rs-tooltip p strong {
   color: #aeff5e;
-}
+} */

@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             } else {
                 tooltip.innerHTML = `
                     <h3>${assetData.asset_name}</h3>
-                    <p>Series <strong>${assetData.series}</strong> Card <strong>${assetData.order}</strong></p>
+                    <p>Series <strong>${assetData.series}</strong>&nbsp; Card <strong>${assetData.order}</strong></p>
                     `;
                 tooltip.appendChild(assetData.img_obj);
                 tooltip.innerHTML += `
