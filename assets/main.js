@@ -26,13 +26,31 @@ const updateTooltipPosition = (event) => {
     let mouseX = event.clientX;
     let mouseY = event.clientY;
     const activeTooltip = document.querySelector('.rs-tooltip.active');
+    
     if (activeTooltip) {
+        const tooltipWidth = activeTooltip.offsetWidth;
+        const tooltipHeight = activeTooltip.offsetHeight;
+        const viewportWidth = window.innerWidth;
+
+        // If tooltip overflows to the top, place below cursor
         if (mouseY < 400) {
             activeTooltip.style.top = `${mouseY + 10}px`;
         } else {
-            activeTooltip.style.top = `${mouseY - (activeTooltip.offsetHeight + 10)}px`;
+            activeTooltip.style.top = `${mouseY - (tooltipHeight + 10)}px`;
         }
-        activeTooltip.style.left = `${mouseX - (activeTooltip.offsetWidth / 2)}px`;
+
+        // If tooltip overflows to the sides, place at edge of viewport
+        if (mouseX + tooltipWidth / 2 > viewportWidth) {
+            activeTooltip.style.left = `${viewportWidth - tooltipWidth - 10}px`; // 10px padding from right
+        }
+        else if (mouseX - tooltipWidth / 2 < 0) {
+            activeTooltip.style.left = '10px'; // 10px padding from left
+        }
+        
+        // Normal centered positioning
+        else {
+            activeTooltip.style.left = `${mouseX - (tooltipWidth / 2)}px`;
+        }
     }
 }
 
