@@ -1,5 +1,6 @@
 let nftData;
 let assetNamesOnPage = rsData.assetNames; // Defined in shortcode.php
+let activeTooltip = null;
 
 const fetchData = async () => {
     try {
@@ -22,48 +23,15 @@ const preloadImages = () => {
     });
 }
 
-const updateTooltipPosition = (event) => {
-    let mouseX = event.clientX;
-    let mouseY = event.clientY;
-    const activeTooltip = document.querySelector('.rs-tooltip.active');
-    
-    if (activeTooltip) {
-        const tooltipWidth = activeTooltip.offsetWidth;
-        const tooltipHeight = activeTooltip.offsetHeight;
-        const viewportWidth = window.innerWidth;
-
-        // If tooltip overflows to the top, place below cursor
-        if (mouseY < 400) {
-            activeTooltip.style.top = `${mouseY + 10}px`;
-        } else {
-            activeTooltip.style.top = `${mouseY - (tooltipHeight + 10)}px`;
-        }
-
-        // If tooltip overflows to the sides, place at edge of viewport
-        if (mouseX + tooltipWidth / 2 > viewportWidth) {
-            activeTooltip.style.left = `${viewportWidth - tooltipWidth - 10}px`; // 10px padding from right
-        }
-        else if (mouseX - tooltipWidth / 2 < 0) {
-            activeTooltip.style.left = '10px'; // 10px padding from left
-        }
-        
-        // Normal centered positioning
-        else {
-            activeTooltip.style.left = `${mouseX - (tooltipWidth / 2)}px`;
-        }
-    }
-}
-
-const linkMouseOverHandler = (tooltip, link) => {
+const linkMouseHandler = (tooltip, link, event, isClick = false) => {
     if (!nftData) {
         tooltip.innerHTML = 'Data is not loaded yet.';
-        tooltip.style.display = 'block';
-        tooltip.classList.add('active');
         return;
     }
 
     const assetName = link.dataset.assetName;
     const assetData = nftData.find(item => item.asset_name === assetName);
+
     if (!assetData) {
         tooltip.innerHTML = 'No data found for this asset.';
     } else {
@@ -76,13 +44,51 @@ const linkMouseOverHandler = (tooltip, link) => {
             <p>Initially Issued: <strong>${assetData.quantity}</strong></p>
         `;
     }
-    tooltip.style.display = 'block';
-    tooltip.classList.add('active');
+
+    if (isClick) {
+        if (activeTooltip === tooltip) {
+            tooltip.style.display = 'none';
+            activeTooltip = null;
+        } else {
+            tooltip.style.display = 'block';
+            if (activeTooltip) activeTooltip.style.display = 'none';
+            activeTooltip = tooltip;
+        }
+    } else {
+        tooltip.style.display = 'block';
+        activeTooltip = tooltip;
+    }
+
+    updateTooltipPosition(tooltip, event);
 }
 
-const linkMouseOutHandler = (tooltip) => {
-    tooltip.style.display = 'none';
-    tooltip.classList.remove('active');
+const updateTooltipPosition = (tooltip, event) => {
+    // Positioning logic
+    let mouseX = event.clientX;
+    let mouseY = event.clientY;
+    const tooltipWidth = tooltip.offsetWidth;
+    const tooltipHeight = tooltip.offsetHeight;
+    const viewportWidth = window.innerWidth;
+
+    // If tooltip overflows to the top, place below cursor
+    if (mouseY < 400) {
+        tooltip.style.top = `${mouseY + 10}px`;
+    } else {
+        tooltip.style.top = `${mouseY - (tooltipHeight + 10)}px`;
+    }
+
+    // If tooltip overflows to the sides, place at edge of viewport
+    if (mouseX + tooltipWidth / 2 > viewportWidth) {
+        tooltip.style.left = `${viewportWidth - tooltipWidth - 10}px`; // 10px padding from right
+    }
+    else if (mouseX - tooltipWidth / 2 < 0) {
+        tooltip.style.left = '10px'; // 10px padding from left
+    }
+
+    // Normal centered positioning
+    else {
+        tooltip.style.left = `${mouseX - (tooltipWidth / 2)}px`;
+    }
 }
 
 const initTooltips = () => {
@@ -91,15 +97,30 @@ const initTooltips = () => {
         return;
     }
 
-    document.addEventListener('mousemove', updateTooltipPosition);
+    const isTouchDevice = 'ontouchstart' in document.documentElement;
 
     links.forEach((link) => {
         const tooltip = document.createElement('div');
         tooltip.className = 'rs-tooltip';
         document.body.appendChild(tooltip);
 
-        link.addEventListener('mouseover', () => linkMouseOverHandler(tooltip, link));
-        link.addEventListener('mouseout', () => linkMouseOutHandler(tooltip));
+        if (isTouchDevice) {
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                linkMouseHandler(tooltip, link, event, true);
+            });
+        } else {
+            link.addEventListener('mouseover', (event) => {
+                linkMouseHandler(tooltip, link, event);
+            });
+            link.addEventListener('mouseout', () => {
+                tooltip.style.display = 'none';
+                activeTooltip = null;
+            });
+            link.addEventListener('mousemove', (event) => {
+                updateTooltipPosition(tooltip, event);
+            });
+        }
     });
 }
 
