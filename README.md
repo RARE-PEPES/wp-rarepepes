@@ -5,7 +5,7 @@ Requires PHP: 8.1<br>
 
 ## Description
 
-This plugin provides a shortcode that you can use to fetch and display data about rare assets.
+Shortcodes to display media and metadata for your rare pepes using only asset names and shortcodes.
 
 You can use the shortcode like this:
 
