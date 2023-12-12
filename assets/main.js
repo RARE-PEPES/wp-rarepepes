@@ -4,9 +4,9 @@ let activeTooltip = null;
 let documentTouchTriggered = false;
 
 // Fetch data from server
-const fetchData = async () => {
+const fetchData = async (assetNames) => {
     try {
-        const response = await fetch('https://data.rarepepes.com/items/nft');
+        const response = await fetch(`https://data.rarepepes.com/items/nft?filter[asset_name][_in]=${assetNames}`);
         const data = await response.json();
         nftData = data.data;
         preloadImages();
@@ -49,9 +49,9 @@ const updateTooltipPosition = (tooltip, event) => {
     const viewportWidth = window.innerWidth;
 
     tooltip.style.top = mouseY < 400 ? `${mouseY + 10}px` : `${mouseY - (tooltipHeight + 10)}px`;
-    tooltip.style.left = mouseX + tooltipWidth / 2 > viewportWidth ? `${viewportWidth - tooltipWidth - 10}px` 
-                        : mouseX - tooltipWidth / 2 < 0 ? '10px'
-                        : `${mouseX - (tooltipWidth / 2)}px`;
+    tooltip.style.left = mouseX + tooltipWidth / 2 > viewportWidth ? `${viewportWidth - tooltipWidth - 10}px`
+        : mouseX - tooltipWidth / 2 < 0 ? '10px'
+            : `${mouseX - (tooltipWidth / 2)}px`;
 }
 
 // Tooltip Mouse Handler
@@ -95,8 +95,7 @@ const createTooltipElement = (assetName) => {
 }
 
 // Initialize tooltips for all the links on the page
-const initTooltips = () => {
-    const links = document.querySelectorAll('.rs-link');
+const initTooltips = (links) => {
     const isTouchDevice = 'ontouchstart' in document.documentElement;
 
     links.forEach((link) => {
@@ -135,6 +134,9 @@ const initTooltips = () => {
 
 // When the document is loaded, fetch data and initialize tooltips
 document.addEventListener('DOMContentLoaded', async () => {
-    await fetchData();
-    initTooltips();
+    const links = document.querySelectorAll('.rs-link');
+    let assetNames = Array.from(links).map(link => link.dataset.assetName);
+    assetNames = assetNames.join(',');
+    await fetchData(assetNames);
+    initTooltips(links);
 });
